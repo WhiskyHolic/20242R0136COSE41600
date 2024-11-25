@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # pcd 파일 불러오기, 필요에 맞게 경로 수정
-file_path = "../data/02_straight_duck_walk/pcd/pcd_000001.pcd"
+file_path = "../data/03_straight_crawl/pcd/pcd_000119.pcd"
 # PCD 파일 읽기
 original_pcd = o3d.io.read_point_cloud(file_path)
 
@@ -17,7 +17,7 @@ downsample_pcd = original_pcd.voxel_down_sample(voxel_size=voxel_size)
 print(f"Number of points after downsampling: {len(downsample_pcd.points)}")
 
 # Radius Outlier Removal (ROR) 적용
-cl, ind = downsample_pcd.remove_radius_outlier(nb_points=5, radius=1.2)
+cl, ind = downsample_pcd.remove_radius_outlier(nb_points=5, radius=1.5)
 ror_pcd = downsample_pcd.select_by_index(ind)
 
 print(f"Number of points in the point cloud: {len(ror_pcd.points)}")
