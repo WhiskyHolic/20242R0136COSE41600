@@ -8,7 +8,7 @@ file_path = "../data/07_straight_walk/pcd/pcd_000119.pcd"
 # PCD 파일 읽기
 original_pcd = o3d.io.read_point_cloud(file_path)
 
-o3d.visualization.draw_geometries([original_pcd], window_name="Original PCD")
+#o3d.visualization.draw_geometries([original_pcd], window_name="Original PCD")
 
 # Voxel Downsampling 수행
 voxel_size = 0.05  # 필요에 따라 voxel 크기를 조정하세요.
@@ -20,8 +20,8 @@ ror_pcd = downsample_pcd.select_by_index(ind)
 
 # RANSAC을 사용하여 평면 추정
 plane_model, inliers = ror_pcd.segment_plane(distance_threshold=0.1,
-                                             ransac_n=5,
-                                             num_iterations=2000)
+                                             ransac_n=3,
+                                             num_iterations=1000)
 
 # 도로에 속하지 않는 포인트 (outliers) 추출
 final_point = ror_pcd.select_by_index(inliers, invert=True)
@@ -51,8 +51,9 @@ min_z_value = -1.5    # 클러스터 내 최소 Z값
 max_z_value = 2.0   # 클러스터 내 최대 Z값
 
 # 필터링 기준 3. 클러스터 내 최소 최대 Z값 차이
-min_height = 0.5   # Z값 차이의 최소값
-max_height = 2.5   # Z값 차이의 최대값
+min_height = 0.75   # Z값 차이의 최소값
+max_height = 2.0   # Z값 차이의 최대값
+max_width = 0.6
 
 max_distance = 30.0  # 원점으로부터의 최대 거리
 
@@ -72,8 +73,12 @@ for i in range(max_label + 1):
                 distances = np.linalg.norm(points, axis=1)
                 if distances.max() <= max_distance:
                     bbox = cluster_pcd.get_axis_aligned_bounding_box()
-                    bbox.color = (1, 0, 0) 
-                    bboxes_1234.append(bbox)
+                    bbox_extent = bbox.get_extent()
+                    width, depth = bbox_extent[0], bbox_extent[1]
+
+                    if max(width, depth) <= max_width:
+                        bbox.color = (1, 0, 0) 
+                        bboxes_1234.append(bbox)
 
 
 # 포인트 클라우드 및 바운딩 박스를 시각화하는 함수
