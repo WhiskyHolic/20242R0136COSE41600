@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # pcd 파일 불러오기, 필요에 맞게 경로 수정
-file_path = "../data/03_straight_crawl/pcd/pcd_000119.pcd"
+file_path = "../data/04_zigzag_walk/pcd/pcd_000200.pcd"
 # PCD 파일 읽기
 original_pcd = o3d.io.read_point_cloud(file_path)
 
