@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # pcd 파일 불러오기, 필요에 맞게 경로 수정
-file_path = "../data/05_straight_duck_walk/pcd/pcd_000100.pcd"
+file_path = "../data/06_straight_crawl/pcd/pcd_000100.pcd"
 # PCD 파일 읽기
 original_pcd = o3d.io.read_point_cloud(file_path)
 
@@ -48,7 +48,7 @@ final_point.colors = o3d.utility.Vector3dVector(colors[:, :3])
 
 # 필터링 기준 1. 클러스터 내 최대 최소 포인트 수
 min_points_in_cluster = 10   # 클러스터 내 최소 포인트 수
-max_points_in_cluster = 70  # 클러스터 내 최대 포인트 수
+max_points_in_cluster = 80  # 클러스터 내 최대 포인트 수
 
 # 필터링 기준 2. 클러스터 내 최소 최대 Z값
 min_z_value = -1.5    # 클러스터 내 최소 Z값
