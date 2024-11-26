@@ -11,7 +11,7 @@ original_pcd = o3d.io.read_point_cloud(file_path)
 #o3d.visualization.draw_geometries([original_pcd], window_name="Original PCD")
 
 # Voxel Downsampling 수행
-voxel_size = 0.05  # 필요에 따라 voxel 크기를 조정하세요.
+voxel_size = 0.05
 downsample_pcd = original_pcd.voxel_down_sample(voxel_size=voxel_size)
 
 print(f"Number of points after downsampling: {len(downsample_pcd.points)}")
